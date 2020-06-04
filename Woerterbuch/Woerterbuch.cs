@@ -29,7 +29,7 @@ namespace Woerterbuch
                 translation.Word = partArray[1];
                 translation.CountryCode = partArray[2];
                 translations.Add(translation);
-                if(partArray.Length > 2)
+                if(!string.IsNullOrEmpty(partArray[3]) && !string.IsNullOrEmpty(partArray[4]))
                 {
                     Translation translation1 = new Translation();
                     translation1.Word = partArray[3];
@@ -125,14 +125,26 @@ namespace Woerterbuch
         {
             string[] exportString = new string[germanToEnglishDict.Count];
             int i = 0;
-            foreach(KeyValuePair<string, List<Translation>> item in germanToEnglishDict)
+            int number = 2;
+            
+            foreach(KeyValuePair<string, List<Translation>> item in germanToEnglishDict)  
             {
+                int difference = 0;
                 string valueString = "";
                 for(int j = 0; j < item.Value.Count; j++)
                 {
-                    valueString = valueString + item.Value[j].Word + ";" + item.Value[j].CountryCode + ";";
+                    
+                    valueString = valueString + item.Value[j].Word + ";" + item.Value[j].CountryCode+";";
+                    
+                }
+                difference = number - item.Value.Count;
+                /// need the semicolons to read it right in Public Woerterbuch()
+                for (int j = 0; j < difference; j++)
+                {
+                    valueString = valueString + ";";
                 }
                 exportString[i] = item.Key + ";" + valueString;
+
                 i++;
             }
             File.WriteAllLines("C:\\Users\\DCV\\C#\\Woerterbuch\\Woerterbuch.csv", exportString);
