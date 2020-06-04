@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +13,33 @@ namespace Woerterbuch
 {
     public partial class Woerterbuch : Form
     {
+        
         Dictionary<string, List<Translation>> germanToEnglishDict = new Dictionary<string, List<Translation>>();
         public Woerterbuch()
         {
             InitializeComponent();
+            string[] stringArray = System.IO.File.ReadAllLines("C:\\Users\\DCV\\C#\\Woerterbuch\\Woerterbuch.csv");
+
+            for (int i = 0; i < stringArray.Length; i++) 
+            {
+                List<Translation> translations = new List<Translation>();
+                string[] partArray = stringArray[i].Split(';');
+                string word = partArray[0];
+                Translation translation = new Translation();
+                translation.Word = partArray[1];
+                translation.CountryCode = partArray[2];
+                translations.Add(translation);
+                if(partArray.Length > 2)
+                {
+                    Translation translation1 = new Translation();
+                    translation1.Word = partArray[3];
+                    translation1.CountryCode = partArray[4];
+                    translations.Add(translation1);
+                }
+                germanToEnglishDict.Add(word, translations);
+            }
+            UpdateTranslations();
+
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -67,9 +91,10 @@ namespace Woerterbuch
 
             if (!string.IsNullOrEmpty(selectedWord) && germanToEnglishDict.ContainsKey(selectedWord))
             {
+                List<Translation> translations;
                 bool isThereAEnglishTranslation = false;
                 bool isThereASpanishTranslation = false;
-                List<Translation> translations = germanToEnglishDict[selectedWord];
+                translations = germanToEnglishDict[selectedWord];
                 for (int i = 0; i < translations.Count; i++)
                 {
                     if (translations[i].CountryCode.Equals("EN"))
@@ -94,6 +119,23 @@ namespace Woerterbuch
 
 
             }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            string[] exportString = new string[germanToEnglishDict.Count];
+            int i = 0;
+            foreach(KeyValuePair<string, List<Translation>> item in germanToEnglishDict)
+            {
+                string valueString = "";
+                for(int j = 0; j < item.Value.Count; j++)
+                {
+                    valueString = valueString + item.Value[j].Word + ";" + item.Value[j].CountryCode + ";";
+                }
+                exportString[i] = item.Key + ";" + valueString;
+                i++;
+            }
+            File.WriteAllLines("C:\\Users\\DCV\\C#\\Woerterbuch\\Woerterbuch.csv", exportString);
         }
     }
 }

@@ -40,6 +40,7 @@
             this.lbGerman = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnExport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAddEnglish
@@ -142,11 +143,22 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "Deutsch <> Spanisch";
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(484, 347);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(120, 47);
+            this.btnExport.TabIndex = 14;
+            this.btnExport.Text = "Export CSV";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // Woerterbuch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbGerman);
@@ -180,6 +192,7 @@
         private System.Windows.Forms.Label lbGerman;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnExport;
     }
 }
 
