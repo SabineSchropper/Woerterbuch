@@ -1,0 +1,10 @@
+C:\Users\DCV\source\repos\Woerterbuch\Woerterbuch\bin\Debug\Woerterbuch.exe.config
+C:\Users\DCV\source\repos\Woerterbuch\Woerterbuch\bin\Debug\Woerterbuch.exe
+C:\Users\DCV\source\repos\Woerterbuch\Woerterbuch\bin\Debug\Woerterbuch.pdb
+C:\Users\DCV\source\repos\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.csprojAssemblyReference.cache
+C:\Users\DCV\source\repos\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.Properties.Resources.resources
+C:\Users\DCV\source\repos\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.Woerterbuch.resources
+C:\Users\DCV\source\repos\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.csproj.GenerateResource.cache
+C:\Users\DCV\source\repos\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.csproj.CoreCompileInputs.cache
+C:\Users\DCV\source\repos\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.exe
+C:\Users\DCV\source\repos\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.pdb
