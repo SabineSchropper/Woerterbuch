@@ -41,11 +41,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnExport = new System.Windows.Forms.Button();
+            this.tbSearch = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lBoxAlphabet = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // btnAddEnglish
             // 
-            this.btnAddEnglish.Location = new System.Drawing.Point(301, 164);
+            this.btnAddEnglish.Location = new System.Drawing.Point(300, 152);
             this.btnAddEnglish.Name = "btnAddEnglish";
             this.btnAddEnglish.Size = new System.Drawing.Size(166, 31);
             this.btnAddEnglish.TabIndex = 0;
@@ -71,7 +74,7 @@
             // 
             this.lBoxGermanWords.FormattingEnabled = true;
             this.lBoxGermanWords.ItemHeight = 16;
-            this.lBoxGermanWords.Location = new System.Drawing.Point(94, 237);
+            this.lBoxGermanWords.Location = new System.Drawing.Point(93, 258);
             this.lBoxGermanWords.Name = "lBoxGermanWords";
             this.lBoxGermanWords.Size = new System.Drawing.Size(319, 180);
             this.lBoxGermanWords.TabIndex = 4;
@@ -119,7 +122,7 @@
             // lbGerman
             // 
             this.lbGerman.AutoSize = true;
-            this.lbGerman.Location = new System.Drawing.Point(91, 217);
+            this.lbGerman.Location = new System.Drawing.Point(90, 240);
             this.lbGerman.Name = "lbGerman";
             this.lbGerman.Size = new System.Drawing.Size(60, 17);
             this.lbGerman.TabIndex = 11;
@@ -153,11 +156,41 @@
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
+            // tbSearch
+            // 
+            this.tbSearch.Location = new System.Drawing.Point(93, 217);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(318, 22);
+            this.tbSearch.TabIndex = 15;
+            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(91, 197);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(48, 17);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Suche";
+            // 
+            // lBoxAlphabet
+            // 
+            this.lBoxAlphabet.FormattingEnabled = true;
+            this.lBoxAlphabet.ItemHeight = 16;
+            this.lBoxAlphabet.Location = new System.Drawing.Point(41, 258);
+            this.lBoxAlphabet.Name = "lBoxAlphabet";
+            this.lBoxAlphabet.Size = new System.Drawing.Size(46, 180);
+            this.lBoxAlphabet.TabIndex = 17;
+            this.lBoxAlphabet.Click += new System.EventHandler(this.lBoxAlphabet_Click);
+            // 
             // Woerterbuch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lBoxAlphabet);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -193,6 +226,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.TextBox tbSearch;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListBox lBoxAlphabet;
     }
 }
 

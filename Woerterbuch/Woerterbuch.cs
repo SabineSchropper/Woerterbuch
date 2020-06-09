@@ -15,6 +15,8 @@ namespace Woerterbuch
     {
         
         Dictionary<string, List<Translation>> germanToEnglishDict = new Dictionary<string, List<Translation>>();
+        string[] alphabetArray = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R",
+        "S","T","U","V","W","X","Y","Z"};
         public Woerterbuch()
         {
             InitializeComponent();
@@ -39,6 +41,7 @@ namespace Woerterbuch
                 germanToEnglishDict.Add(word, translations);
             }
             UpdateTranslations();
+            lBoxAlphabet.DataSource = alphabetArray.ToList();
 
         }
 
@@ -149,5 +152,26 @@ namespace Woerterbuch
             }
             File.WriteAllLines("C:\\Users\\DCV\\C#\\Woerterbuch\\Woerterbuch.csv", exportString);
         }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            List<string> list = germanToEnglishDict
+                .Where(x =>
+                x.Key.Contains(tbSearch.Text)).Select(x => x.Key).ToList();
+            lBoxGermanWords.DataSource = list;
+        }
+
+        private void lBoxAlphabet_Click(object sender, EventArgs e)
+        {
+            string letter = lBoxAlphabet.SelectedItem.ToString();
+            string letterLowerCase = letter.ToLower();
+
+            List<string> list = germanToEnglishDict
+                .Where(x =>
+                x.Key.Contains(letter) || x.Key.Contains(letterLowerCase)).Select(x => x.Key).ToList();
+            lBoxGermanWords.DataSource = list;
+
+        }
     }
 }
+ 
