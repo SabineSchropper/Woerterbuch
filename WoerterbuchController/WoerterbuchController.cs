@@ -155,24 +155,24 @@ namespace WoerterbuchLogic
             }
             return germanToEnglishDict;
         }
-        public List<string> OrderTranslations(Dictionary<string, List<Translation>> germanToEnglishDict, string selectedWord)
+        public string[] OrderTranslations(Dictionary<string, List<Translation>> germanToEnglishDict, string selectedWord)
         {
             List<Translation> translations;
-            List<string> outputList = null;
+            string[] outputArray = new string[2];
             translations = germanToEnglishDict[selectedWord];
             for (int i = 0; i < translations.Count; i++)
             {
                 if (translations[i].CountryCode.Equals("EN"))
                 {
-                    outputList[0] = translations[i].Word;
+                    outputArray[0] = translations[i].Word;
                 }
                 else if (translations[i].CountryCode.Equals("SP"))
                 {
-                    outputList[1] = translations[i].Word;
+                    outputArray[1] = translations[i].Word;
                 }
 
             }
-            return outputList;
+            return outputArray;
         }
     }
 }

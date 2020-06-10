@@ -44,10 +44,10 @@ namespace Woerterbuch
         {
             string selectedWord = lBoxGermanWords.SelectedItem as string;
 
-            if (!string.IsNullOrEmpty(selectedWord) && germanToEnglishDict.ContainsKey(selectedWord))
+            if (!string.IsNullOrEmpty(selectedWord))
             {
 
-                List<string> outputList = new List<string>();
+                string[] outputList = new string[2];
                 outputList = controller.OrderTranslations(germanToEnglishDict, selectedWord);
                 
                 tbTranslation.Text = outputList[0];
