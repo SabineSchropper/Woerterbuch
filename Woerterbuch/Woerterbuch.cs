@@ -47,11 +47,11 @@ namespace Woerterbuch
             if (!string.IsNullOrEmpty(selectedWord))
             {
 
-                string[] outputList = new string[2];
-                outputList = controller.OrderTranslations(germanToEnglishDict, selectedWord);
+                string[] outputArray;
+                outputArray = controller.OrderTranslations(germanToEnglishDict, selectedWord);
                 
-                tbTranslation.Text = outputList[0];
-                tbSpanishTranslation.Text = outputList[1];
+                tbTranslation.Text = outputArray[0];
+                tbSpanishTranslation.Text = outputArray[1];
                 
             }
         }
