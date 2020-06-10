@@ -18,3 +18,6 @@ C:\Users\DCV\C#\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.csproj.GenerateRes
 C:\Users\DCV\C#\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.csproj.CoreCompileInputs.cache
 C:\Users\DCV\C#\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.exe
 C:\Users\DCV\C#\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.pdb
+C:\Users\DCV\C#\Woerterbuch\Woerterbuch\bin\Debug\WoerterbuchLogic.dll
+C:\Users\DCV\C#\Woerterbuch\Woerterbuch\bin\Debug\WoerterbuchLogic.pdb
+C:\Users\DCV\C#\Woerterbuch\Woerterbuch\obj\Debug\Woerterbuch.csproj.CopyComplete

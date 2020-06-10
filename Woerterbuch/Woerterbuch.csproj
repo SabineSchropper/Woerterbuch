@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Translation.cs" />
     <Compile Include="Woerterbuch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WoerterbuchController\WoerterbuchLogic.csproj">
+      <Project>{cf263a28-47b8-4790-ac00-bed5064599c4}</Project>
+      <Name>WoerterbuchLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
