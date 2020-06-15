@@ -1,0 +1,1 @@
+C:\Users\DCV\C#\Woerterbuch\WoerterbuchUWP\WoerterbuchUWP.csproj;x86

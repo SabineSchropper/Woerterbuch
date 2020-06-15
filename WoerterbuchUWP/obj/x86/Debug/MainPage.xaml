@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="WoerterbuchUWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WoerterbuchUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <ListBox x:ConnectionId='2' x:Name="lBoxGermanWord" HorizontalAlignment="Left" Height="275" Margin="310,360,0,0" VerticalAlignment="Top" Width="582"                                                   />
+        <ListBox x:ConnectionId='3' x:Name="lBoxAlphabet" HorizontalAlignment="Left" Height="271" Margin="159,364,0,0" VerticalAlignment="Top" Width="83"                                                                    />
+        <TextBox x:ConnectionId='4' x:Name="tbSearch" HorizontalAlignment="Left" Height="44" Margin="307,283,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="586"                                   />
+        <TextBox x:ConnectionId='5' x:Name="tbTranslation" HorizontalAlignment="Left" Height="55" Margin="959,364,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Header="English Translation"/>
+        <TextBox x:ConnectionId='6' x:Name="tbSpanishTranslation" HorizontalAlignment="Left" Height="55" Margin="959,446,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Header="Spanish Translation"/>
+        <Button x:ConnectionId='7' x:Name="btnExport" Content="Export CSV" Height="67" Margin="989,568,0,0" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.772,0.462"                        />
+        <Button x:ConnectionId='8' x:Name="btnAddTranslation" Content="Hinzufügen" Height="55" Margin="693,200,0,0" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.824,0.683"                                />
+        <TextBox x:ConnectionId='9' x:Name="tbEnglishWord" HorizontalAlignment="Left" Height="55" Margin="959,63,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Header="English"/>
+        <TextBox x:ConnectionId='10' x:Name="tbSpanishWord" HorizontalAlignment="Left" Height="55" Margin="959,141,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Header="Spanish"/>
+        <TextBox x:ConnectionId='11' x:Name="tbGermanWord" HorizontalAlignment="Left" Height="55" Margin="310,112,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="253" Header="Deutsch"/>
+        <TextBlock x:ConnectionId='12' x:Name="tBlockEn" HorizontalAlignment="Left" Height="22" Margin="736,89,0,0" Text="DE &lt;&gt; EN" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <TextBlock x:ConnectionId='13' x:Name="tBlockSp" HorizontalAlignment="Left" Height="22" Margin="736,155,0,0" Text="DE &lt;&gt; SP" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+
+    </Grid>
+</Page>
+
