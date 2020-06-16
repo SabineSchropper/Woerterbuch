@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using WoerterbuchData;
+using Google.Protobuf.WellKnownTypes;
 
 namespace WoerterbuchLogic
 {
@@ -15,63 +17,85 @@ namespace WoerterbuchLogic
         /// <summary>
         /// words in dictionary
         /// </summary>
-        private Dictionary<string, List<Translation>> germanToEnglishDict = new Dictionary<string, List<Translation>>();
-
+        private Dictionary<Word, List<Word>> germanToEnglishDict = new Dictionary<Word, List<Word>>();
+        Repository repository = new Repository();
+        List<string> dataList = new List<string>();
         /// <summary>
         /// read the file to the dictionary
         /// wordsDict
         /// </summary>
-        public Dictionary<string, List<Translation>> ReadDictionary()
+        public Dictionary<Word, List<Word>> ReadDictionary()
         {
             string[] stringArray = System.IO.File.ReadAllLines(path);
 
+            germanToEnglishDict = TransformData(stringArray);
+
+            return germanToEnglishDict;
+        }
+        public Dictionary<Word, List<Word>> FillDictionaryFromDatabase()
+        {
+            dataList = repository.GetDataList();
+            string[] stringArray = dataList.ToArray();
+            germanToEnglishDict = TransformData(stringArray);
+            return germanToEnglishDict;
+        }
+        public Dictionary<Word, List<Word>> TransformData(string[] stringArray)
+        {
+            
             for (int i = 0; i < stringArray.Length; i++)
             {
-                List<Translation> translations = new List<Translation>();
+
+                List<Word> words = new List<Word>();
                 string[] partArray = stringArray[i].Split(';');
-                string word = partArray[0];
-                Translation translation = new Translation();
-                translation.Word = partArray[1];
-                translation.CountryCode = partArray[2];
-                translations.Add(translation);
+                Word newWord = new Word();
+
+                newWord.Name = partArray[0];
+                newWord.CountryCode = partArray[1];
+                newWord.Id = Convert.ToInt32(partArray[2]);
+                
                 if (!string.IsNullOrEmpty(partArray[3]) && !string.IsNullOrEmpty(partArray[4]))
                 {
-                    Translation translation1 = new Translation();
-                    translation1.Word = partArray[3];
-                    translation1.CountryCode = partArray[4];
-                    translations.Add(translation1);
+                    Word newWord1 = new Word();
+                    newWord1.Name = partArray[3];
+                    newWord1.CountryCode = partArray[4];
+                    newWord1.Id = Convert.ToInt32(partArray[5]);
+                    words.Add(newWord1);
                 }
-                germanToEnglishDict.Add(word, translations);
+                if (!string.IsNullOrEmpty(partArray[6]) && !string.IsNullOrEmpty(partArray[7]))
+                {
+                    Word newWord2 = new Word();
+                    newWord2.Name = partArray[6];
+                    newWord2.CountryCode = partArray[7];
+                    newWord2.Id = Convert.ToInt32(partArray[8]);
+                    words.Add(newWord2);
+                }
+                germanToEnglishDict.Add(newWord, words);
+
             }
             return germanToEnglishDict;
+
         }
 
         /// <summary>
         /// writes the dictionary to file
         /// </summary>
-        public void WriteToFile(Dictionary<string, List<Translation>> germanToEnglishDict)
+        public void WriteToFile(Dictionary<Word, List<Word>> germanToEnglishDict)
         {
             string[] exportString = new string[germanToEnglishDict.Count];
             int i = 0;
             int number = 2;
 
-            foreach (KeyValuePair<string, List<Translation>> item in germanToEnglishDict)
-            {
-                int difference = 0;
+            foreach (KeyValuePair<Word, List<Word>> item in germanToEnglishDict)
+            { 
                 string valueString = "";
                 for (int j = 0; j < item.Value.Count; j++)
                 {
 
-                    valueString = valueString + item.Value[j].Word + ";" + item.Value[j].CountryCode + ";";
-
+                    valueString = valueString + item.Value[j].Name + ";" + item.Value[j].CountryCode + ";" + item.Value[j].Id + ";";
+          
                 }
-                difference = number - item.Value.Count;
-                /// need the semicolons to read it right in Public Woerterbuch()
-                for (int j = 0; j < difference; j++)
-                {
-                    valueString = valueString + ";";
-                }
-                exportString[i] = item.Key + ";" + valueString;
+               
+                exportString[i] = item.Key.Name + ";" + item.Key.CountryCode +";" + item.Key.Id + ";" + valueString;
 
                 i++;
             }
@@ -92,7 +116,7 @@ namespace WoerterbuchLogic
                 string filterStringLower = filterString.ToLower();
                 List<string> list = germanToEnglishDict
                                         .Where(x =>
-                                        x.Key.StartsWith(filterString) || x.Key.StartsWith(filterStringLower)).Select(x => x.Key).ToList();
+                                        x.Key.Name.StartsWith(filterString) || x.Key.Name.StartsWith(filterStringLower)).Select(x => x.Key.Name).ToList();
                 return list;
 
             }
@@ -100,7 +124,7 @@ namespace WoerterbuchLogic
             {
                 List<string> list = germanToEnglishDict
                                     .Where(x =>
-                                    x.Key.Contains(filterString)).Select(x => x.Key).ToList();
+                                    x.Key.Name.Contains(filterString)).Select(x => x.Key.Name).ToList();
                 return list;
             }
 
@@ -118,60 +142,73 @@ namespace WoerterbuchLogic
             return list;
         }
 
-        public Dictionary<string, List<Translation>> AppendTranslations(Dictionary<string, List<Translation>> germanToEnglishDict,
+        public Dictionary<Word, List<Word>> AppendTranslations(Dictionary<Word, List<Word>> germanToEnglishDict,
             string englishWord, string spanishWord, string germanWord)
         {
             bool isSomethingAdded = false;
-            Translation translation = null;
-            List<Translation> translations = new List<Translation>();
+            Word translation = null;
+            List<Word> translations = new List<Word>();
+
+            Word germanWordObject = new Word();
+            germanWordObject.Name = germanWord;
+            germanWordObject.CountryCode = "DE";
+
 
             if (!string.IsNullOrEmpty(germanWord) && !string.IsNullOrEmpty(englishWord))
             {
                 isSomethingAdded = true;
-                translation = new Translation();
-                translation.Word = englishWord;
+                translation = new Word();
+                translation.Name = englishWord;
                 translation.CountryCode = "EN";
                 translations.Add(translation);
+
             }
             if (!string.IsNullOrEmpty(germanWord) && !string.IsNullOrEmpty(spanishWord))
             {
                 isSomethingAdded = true;
-                translation = new Translation();
-                translation.Word = spanishWord;
+                translation = new Word();
+                translation.Name = spanishWord;
                 translation.CountryCode = "SP";
                 translations.Add(translation);
             }
             if (isSomethingAdded)
             {
-                if (germanToEnglishDict.ContainsKey(germanWord))
+                if (germanToEnglishDict.ContainsKey(germanWordObject))
                 {
-                    germanToEnglishDict[germanWord].Add(translation);
+                    germanToEnglishDict[germanWordObject].Add(translation);
                 }
                 else
                 {
-                    germanToEnglishDict.Add(germanWord, translations);
+                    germanToEnglishDict.Add(germanWordObject, translations);
                 }
                 
             }
             return germanToEnglishDict;
         }
-        public string[] OrderTranslations(Dictionary<string, List<Translation>> germanToEnglishDict, string selectedWord)
+        public string[] OrderTranslations(Dictionary<Word, List<Word>> germanToEnglishDict, string selectedWord)
         {
-            List<Translation> translations;
+            
             string[] outputArray = new string[2];
-            translations = germanToEnglishDict[selectedWord];
-            for (int i = 0; i < translations.Count; i++)
+            foreach (KeyValuePair<Word, List<Word>> item in germanToEnglishDict)
             {
-                if (translations[i].CountryCode.Equals("EN"))
+                if (item.Key.Name.Equals(selectedWord))
                 {
-                    outputArray[0] = translations[i].Word;
-                }
-                else if (translations[i].CountryCode.Equals("SP"))
-                {
-                    outputArray[1] = translations[i].Word;
-                }
+                   for(int i = 0; i < item.Value.Count; i++)
+                    {
+                        if (item.Value[i].CountryCode.Equals("EN"))
+                        {
+                            outputArray[0] = item.Value[i].Name;
+                        }
+                        else if (item.Value[i].CountryCode.Equals("SP"))
+                        {
+                            outputArray[1] = item.Value[i].Name;
+                        }
 
+                    }
+
+                }
             }
+                
             return outputArray;
         }
     }

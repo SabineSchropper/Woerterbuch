@@ -9,13 +9,13 @@ namespace Woerterbuch
     public partial class Woerterbuch : Form
     {
         WoerterbuchController controller = new WoerterbuchController("C:\\Users\\DCV\\C#\\Woerterbuch\\Woerterbuch.csv");
-        Dictionary<string, List<Translation>> germanToEnglishDict = new Dictionary<string, List<Translation>>();
+        Dictionary<Word, List<Word>> germanToEnglishDict = new Dictionary<Word, List<Word>>();
        
         public Woerterbuch()
         {
             InitializeComponent();
 
-            germanToEnglishDict = controller.ReadDictionary();
+            germanToEnglishDict = controller.FillDictionaryFromDatabase();
             
             UpdateTranslations();
             lBoxAlphabet.DataSource = controller.GetAlphabet();

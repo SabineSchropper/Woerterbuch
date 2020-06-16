@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoerterbuchLogic", "Woerter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoerterbuchUWP", "WoerterbuchUWP\WoerterbuchUWP.csproj", "{F4E6D0E3-98BA-4A68-9F2A-0DFA279B1962}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoerterbuchData", "WoerterbuchData1\WoerterbuchData.csproj", "{7C930167-7034-4DF8-A4F1-989C21829804}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,26 @@ Global
 		{F4E6D0E3-98BA-4A68-9F2A-0DFA279B1962}.Release|x86.ActiveCfg = Release|x86
 		{F4E6D0E3-98BA-4A68-9F2A-0DFA279B1962}.Release|x86.Build.0 = Release|x86
 		{F4E6D0E3-98BA-4A68-9F2A-0DFA279B1962}.Release|x86.Deploy.0 = Release|x86
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Debug|ARM.Build.0 = Debug|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Debug|x64.Build.0 = Debug|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Debug|x86.Build.0 = Debug|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Release|ARM.Build.0 = Release|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Release|ARM64.Build.0 = Release|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Release|x64.ActiveCfg = Release|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Release|x64.Build.0 = Release|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Release|x86.ActiveCfg = Release|Any CPU
+		{7C930167-7034-4DF8-A4F1-989C21829804}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

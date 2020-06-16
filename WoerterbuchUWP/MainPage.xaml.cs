@@ -24,7 +24,7 @@ namespace WoerterbuchUWP
     {
 
         WoerterbuchController controller = new WoerterbuchController("C:\\Users\\DCV\\C#\\Woerterbuch\\Woerterbuch.csv");
-        Dictionary<string, List<Translation>> germanToEnglishDict = new Dictionary<string, List<Translation>>();
+        Dictionary<string, List<Word>> germanToEnglishDict = new Dictionary<string, List<Word>>();
         public MainPage()
         {
             this.InitializeComponent();

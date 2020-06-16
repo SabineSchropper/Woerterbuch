@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace WoerterbuchLogic
 {
-    public class Translation
+    public class Word
     {
-        public string Word { get; set; }
+        public string Name { get; set; }
         public string CountryCode { get; set; }
+
+        public int Id { get; set; }
     }
 }

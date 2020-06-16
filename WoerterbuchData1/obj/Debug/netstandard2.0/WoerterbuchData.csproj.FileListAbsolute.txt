@@ -1,0 +1,9 @@
+C:\Users\DCV\C#\Woerterbuch\WoerterbuchData1\bin\Debug\netstandard2.0\WoerterbuchData.deps.json
+C:\Users\DCV\C#\Woerterbuch\WoerterbuchData1\bin\Debug\netstandard2.0\WoerterbuchData.dll
+C:\Users\DCV\C#\Woerterbuch\WoerterbuchData1\bin\Debug\netstandard2.0\WoerterbuchData.pdb
+C:\Users\DCV\C#\Woerterbuch\WoerterbuchData1\obj\Debug\netstandard2.0\WoerterbuchData.AssemblyInfoInputs.cache
+C:\Users\DCV\C#\Woerterbuch\WoerterbuchData1\obj\Debug\netstandard2.0\WoerterbuchData.AssemblyInfo.cs
+C:\Users\DCV\C#\Woerterbuch\WoerterbuchData1\obj\Debug\netstandard2.0\WoerterbuchData.csproj.CoreCompileInputs.cache
+C:\Users\DCV\C#\Woerterbuch\WoerterbuchData1\obj\Debug\netstandard2.0\WoerterbuchData.dll
+C:\Users\DCV\C#\Woerterbuch\WoerterbuchData1\obj\Debug\netstandard2.0\WoerterbuchData.pdb
+C:\Users\DCV\C#\Woerterbuch\WoerterbuchData1\obj\Debug\netstandard2.0\WoerterbuchData.csprojAssemblyReference.cache
