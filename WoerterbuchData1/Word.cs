@@ -20,5 +20,12 @@ namespace WoerterbuchData
                 return Id == 0;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Word word = obj as Word;
+
+            return this.Name == word.Name;
+        }
     }
 }

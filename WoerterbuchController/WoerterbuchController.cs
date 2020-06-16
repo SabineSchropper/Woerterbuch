@@ -41,45 +41,59 @@ namespace WoerterbuchLogic
         }
         public Dictionary<Word, List<Word>> TransformData(string[] stringArray)
         {
-            
+            var allWords = new List<Word>();
             for (int i = 0; i < stringArray.Length; i++)
             {
 
                 List<Word> words = new List<Word>();
                 string[] partArray = stringArray[i].Split(';');
-                Word newWord = new Word();
-                Word newWord1 = new Word();
-                Word newWord2 = new Word();
-
-                newWord.Name = partArray[0];
-                newWord.CountryCode = partArray[1];
-                newWord.Id = Convert.ToInt32(partArray[2]);
+                var wordName = partArray[0];
+                Word newWord = null;
+                Word newWord1 = null;
+                Word newWord2 = null;
+                ///search if there already exists the word
+                ///if it not exists then a new Word is going to be created
+                ///creating new word object and compare it afterwards only generates problems
+                if (allWords.Any(x => x.Name == wordName))
+                {
+                    newWord = allWords.FirstOrDefault(x => x.Name == wordName);
+                }
+                else
+                {
+                    newWord = new Word();
+                    newWord.Name = partArray[0];
+                    newWord.CountryCode = partArray[1];
+                    newWord.Id = Convert.ToInt32(partArray[2]);
+                    allWords.Add(newWord);
+                }
                 
                 if (!string.IsNullOrEmpty(partArray[3]) && !string.IsNullOrEmpty(partArray[4]))
-                {                  
+                {
+                    newWord1 = new Word();
                     newWord1.Name = partArray[3];
                     newWord1.CountryCode = partArray[4];
                     newWord1.Id = Convert.ToInt32(partArray[5]);
                     words.Add(newWord1);
                 }
                 if (!string.IsNullOrEmpty(partArray[6]) && !string.IsNullOrEmpty(partArray[7]))
-                {                   
+                {
+                    newWord2 = new Word();
                     newWord2.Name = partArray[6];
                     newWord2.CountryCode = partArray[7];
                     newWord2.Id = Convert.ToInt32(partArray[8]);
                     words.Add(newWord2);
                 }
-                if (!germanToEnglishDict.ContainsKey(newWord))
+                if (!germanToEnglishDict.Keys.Any(x => x.Equals(newWord)))
                 {
                     germanToEnglishDict.Add(newWord, words);
                 }
                 else
                 {
-                    if (!germanToEnglishDict[newWord].Contains(newWord1))
+                    if (newWord1 != null && !germanToEnglishDict[newWord].Contains(newWord1))
                     {
                         germanToEnglishDict[newWord].Add(newWord1);
                     }
-                    if (!germanToEnglishDict[newWord].Contains(newWord2))
+                    if (newWord2 != null && !germanToEnglishDict[newWord].Contains(newWord2))
                     {
                         germanToEnglishDict[newWord].Add(newWord2);
                     }
