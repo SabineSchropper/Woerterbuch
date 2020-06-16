@@ -30,7 +30,7 @@ namespace Woerterbuch
             string englishWord = tbEnglishWord.Text;
             string spanishWord = tbSpanishWord.Text;
 
-            germanToEnglishDict = controller.AppendTranslations(germanToEnglishDict,englishWord,spanishWord,germanWord);
+            germanToEnglishDict = controller.AppendTranslations(englishWord,spanishWord,germanWord);
             UpdateTranslations();
 
         }

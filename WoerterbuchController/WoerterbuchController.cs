@@ -42,6 +42,10 @@ namespace WoerterbuchLogic
         public Dictionary<Word, List<Word>> TransformData(string[] stringArray)
         {
             var allWords = new List<Word>();
+            foreach (KeyValuePair<Word, List<Word>> item in germanToEnglishDict)
+            {
+                allWords.Add(item.Key);
+            }    
             for (int i = 0; i < stringArray.Length; i++)
             {
 
@@ -169,48 +173,36 @@ namespace WoerterbuchLogic
             return list;
         }
 
-        public Dictionary<Word, List<Word>> AppendTranslations(Dictionary<Word, List<Word>> germanToEnglishDict,
-            string englishWord, string spanishWord, string germanWord)
+        public Dictionary<Word, List<Word>> AppendTranslations(string englishWord, string spanishWord, string germanWord)
         {
             bool isSomethingAdded = false;
-            Word translation = null;
-            List<Word> translations = new List<Word>();
-
-            Word germanWordObject = new Word();
-            germanWordObject.Name = germanWord;
-            germanWordObject.CountryCode = "DE";
-
-
+            string inputString = "";
+        
             if (!string.IsNullOrEmpty(germanWord) && !string.IsNullOrEmpty(englishWord))
             {
                 isSomethingAdded = true;
-                translation = new Word();
-                translation.Name = englishWord;
-                translation.CountryCode = "EN";
-                translations.Add(translation);
+                inputString = germanWord + ";" + "DE" + ";" + "0" + ";";
+                inputString = inputString + englishWord + ";" + "EN" + ";" + "0" + ";";
 
             }
             if (!string.IsNullOrEmpty(germanWord) && !string.IsNullOrEmpty(spanishWord))
             {
-                isSomethingAdded = true;
-                translation = new Word();
-                translation.Name = spanishWord;
-                translation.CountryCode = "SP";
-                translations.Add(translation);
-            }
-            if (isSomethingAdded)
-            {
-                if (germanToEnglishDict.ContainsKey(germanWordObject))
+                if (isSomethingAdded)
                 {
-                    germanToEnglishDict[germanWordObject].Add(translation);
+                  inputString = inputString + spanishWord + ";" + "SP" + ";" + "0" + ";";
                 }
                 else
                 {
-                    germanToEnglishDict.Add(germanWordObject, translations);
+                    inputString = germanWord + ";" + "DE" + ";" + "0" + ";";
+                    inputString = inputString + spanishWord + ";" + "SP" + ";" + "0" + ";";
                 }
-                
             }
-            return germanToEnglishDict;
+            string[] array = { inputString };
+            Dictionary<Word, List<Word>> dict = new Dictionary<Word, List<Word>>();
+            dict = TransformData(array);
+           
+            
+            return dict;
         }
         public string[] OrderTranslations(Dictionary<Word, List<Word>> germanToEnglishDict, string selectedWord)
         {
