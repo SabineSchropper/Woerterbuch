@@ -132,6 +132,10 @@
       <Project>{cf263a28-47b8-4790-ac00-bed5064599c4}</Project>
       <Name>WoerterbuchLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WoerterbuchData1\WoerterbuchData.csproj">
+      <Project>{7C930167-7034-4DF8-A4F1-989C21829804}</Project>
+      <Name>WoerterbuchData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

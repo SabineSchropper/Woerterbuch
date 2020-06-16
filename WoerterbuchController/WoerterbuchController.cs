@@ -48,29 +48,42 @@ namespace WoerterbuchLogic
                 List<Word> words = new List<Word>();
                 string[] partArray = stringArray[i].Split(';');
                 Word newWord = new Word();
+                Word newWord1 = new Word();
+                Word newWord2 = new Word();
 
                 newWord.Name = partArray[0];
                 newWord.CountryCode = partArray[1];
                 newWord.Id = Convert.ToInt32(partArray[2]);
                 
                 if (!string.IsNullOrEmpty(partArray[3]) && !string.IsNullOrEmpty(partArray[4]))
-                {
-                    Word newWord1 = new Word();
+                {                  
                     newWord1.Name = partArray[3];
                     newWord1.CountryCode = partArray[4];
                     newWord1.Id = Convert.ToInt32(partArray[5]);
                     words.Add(newWord1);
                 }
                 if (!string.IsNullOrEmpty(partArray[6]) && !string.IsNullOrEmpty(partArray[7]))
-                {
-                    Word newWord2 = new Word();
+                {                   
                     newWord2.Name = partArray[6];
                     newWord2.CountryCode = partArray[7];
                     newWord2.Id = Convert.ToInt32(partArray[8]);
                     words.Add(newWord2);
                 }
-                germanToEnglishDict.Add(newWord, words);
-
+                if (!germanToEnglishDict.ContainsKey(newWord))
+                {
+                    germanToEnglishDict.Add(newWord, words);
+                }
+                else
+                {
+                    if (!germanToEnglishDict[newWord].Contains(newWord1))
+                    {
+                        germanToEnglishDict[newWord].Add(newWord1);
+                    }
+                    if (!germanToEnglishDict[newWord].Contains(newWord2))
+                    {
+                        germanToEnglishDict[newWord].Add(newWord2);
+                    }
+                }
             }
             return germanToEnglishDict;
 
@@ -205,11 +218,42 @@ namespace WoerterbuchLogic
                         }
 
                     }
-
+                    break;
                 }
             }
                 
             return outputArray;
+        }
+        public void SaveData(Dictionary<Word,List<Word>> germanToEnglishDict)
+        {
+            Dictionary<Word, List<Word>> newDict = new Dictionary<Word, List<Word>>();
+            newDict = SearchChanges(germanToEnglishDict);
+            repository.AddDataToDatabase(newDict);
+        }
+        public Dictionary<Word,List<Word>> SearchChanges(Dictionary<Word, List<Word>> germanToEnglishDict)
+        {
+            Dictionary<Word, List<Word>> newDict = new Dictionary<Word, List<Word>>();
+            foreach (KeyValuePair<Word, List<Word>> item in germanToEnglishDict)
+            {
+                ///search for either Id = 0 in Key or Id = 0 in Values
+                ///this shows us that the word is new and should be added to Database
+                if(item.Key.Id == 0)
+                {
+                    newDict.Add(item.Key,item.Value);
+                }
+                else
+                {
+                    for(int i = 0; i < item.Value.Count; i++)
+                    {
+                        if(item.Value[i].Id == 0)
+                        {
+                            newDict.Add(item.Key, item.Value);
+                        }
+                    }
+                }
+            }
+
+            return newDict;
         }
     }
 }

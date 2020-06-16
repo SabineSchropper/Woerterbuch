@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using WoerterbuchData;
 using WoerterbuchLogic;
 
 namespace Woerterbuch
@@ -35,7 +36,12 @@ namespace Woerterbuch
         }
         private void UpdateTranslations()
         {
-            lBoxGermanWords.DataSource = germanToEnglishDict.Keys.ToList();
+            List<string> dataList = new List<string>();
+            foreach (KeyValuePair<Word, List<Word>> item in germanToEnglishDict)
+            {
+                dataList.Add(item.Key.Name);
+            }
+            lBoxGermanWords.DataSource = dataList;
         }
 
         private void lBoxGermanWords_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,6 +78,11 @@ namespace Woerterbuch
             var list = controller.FindResults(letter, true);         
             lBoxGermanWords.DataSource = list;
 
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            controller.SaveData(germanToEnglishDict);
         }
     }
 }

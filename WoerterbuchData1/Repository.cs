@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace WoerterbuchData
@@ -16,7 +17,7 @@ namespace WoerterbuchData
 
         public void InsertData(string sql)
         {
-           
+
         }
         public List<string> GetDataList()
         {
@@ -40,12 +41,123 @@ namespace WoerterbuchData
 
                 string data = word + ";" + countyCode + ";" + id + ";";
                 string data1 = word1 + ";" + countyCode1 + ";" + id1 + ";";
+                data = data + data1;
                 dataList.Add(data);
-                dataList.Add(data1);
 
             }
+            connection.Close();
+            reader.Close();
             return dataList;
 
+        }
+        public void AddDataToDatabase(Dictionary<Word, List<Word>> dict)
+        {
+            int id = 0;
+            string databaseUrl = "" + connectionString + "";
+            connection = new MySqlConnection(databaseUrl);
+            connection.Open();
+            MySqlCommand command1 = new MySqlCommand();
+            foreach (KeyValuePair<Word, List<Word>> item in dict)
+            {
+                if (item.Key.IsNew)
+                {
+
+                    string sql = "INSERT INTO `dictionary`(`word`, `country_code`) VALUES ('" + item.Key.Name + "','" + item.Key.CountryCode + "')";
+                    command1.Connection = connection;
+                    command1.CommandText = sql;
+                    command1.ExecuteNonQuery();
+                    ///get the id from Database
+                    sql = "SELECT id FROM dictionary WHERE word = '" + item.Key.Name + "'";
+                    command1.CommandText = sql;
+                    MySqlDataReader reader = command1.ExecuteReader();
+                    
+                    while (reader.Read())
+                    {
+                        id = reader.GetInt32("id");
+                    }
+                    item.Key.Id = id;
+                    reader.Close();
+                    connection.Close();
+
+                    for (int i = 0; i < item.Value.Count; i++)
+                    {
+                        sql = "INSERT INTO `dictionary`(`word`, `country_code`) VALUES ('" + item.Value[i].Name + "','" + item.Value[i].CountryCode + "')";
+                        command1 = new MySqlCommand(sql);
+                        connection.Open();
+                        command1.Connection = connection;
+                        command1.ExecuteNonQuery();
+                        ///get the id from Database
+                        sql = "SELECT id FROM dictionary WHERE word = '" + item.Value[i].Name + "'";
+                        command1 = new MySqlCommand(sql);
+                        command1.Connection = connection;
+                        reader = command1.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            id = reader.GetInt32("id");
+                        }
+                        item.Value[i].Id = id;
+                        reader.Close();
+                        connection.Close();
+                        
+                    }
+         
+                    CreateRelation(item.Key, item.Value);
+                }
+                else
+                {
+
+                    for (int i = 0; i < item.Value.Count; i++)
+                    {
+                        if (item.Value[i].IsNew)
+                        {
+                            string sql = "INSERT INTO `dictionary`(`word`, `country_code`) VALUES ('" + item.Value[i].Name + "','" + item.Value[i].CountryCode + "')";
+                            MySqlCommand command = new MySqlCommand(sql);
+                            command.Connection = connection;
+                            command.ExecuteNonQuery();
+                            ///get the id from Database
+                            sql = "SELECT id FROM dictionary WHERE word = '" + item.Value[i].Name + "'";
+                            command1 = new MySqlCommand(sql);
+                            command1.Connection = connection;
+                            MySqlDataReader reader = command1.ExecuteReader();
+
+                            while (reader.Read())
+                            {
+                                id = reader.GetInt32("id");
+                            }
+                            item.Value[i].Id = id;
+                            reader.Close();
+                            CreateOneRelation(item.Key, item.Value[i]);
+                        }
+                    }
+                }
+            }
+        }
+        public void CreateRelation(Word word, List<Word> list)
+        {
+            string databaseUrl = "" + connectionString + "";
+            connection = new MySqlConnection(databaseUrl);
+            connection.Open();
+            for (int i = 0; i < list.Count; i++)
+            {
+                string sql = "INSERT INTO `relation`(`id_one`, `id_two`) VALUES ('" + word.Id + "','" + list[i].Id + "')";
+                MySqlCommand command1 = new MySqlCommand(sql);
+                command1.Connection = connection;
+                command1.ExecuteNonQuery();
+            }
+            connection.Close();
+        }
+        public void CreateOneRelation(Word word, Word newWord)
+        {
+
+            string databaseUrl = "" + connectionString + "";
+            connection = new MySqlConnection(databaseUrl);
+            connection.Open();
+            string sql = "INSERT INTO `relation`(`id_one`, `id_two`) VALUES ('" + word.Id + "','" + newWord.Id + "')";
+            MySqlCommand command1 = new MySqlCommand(sql);
+            command1.Connection = connection;
+            command1.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }
