@@ -10,6 +10,7 @@ namespace WoerterbuchLogic
     public class WoerterbuchController
     {
         private string path;
+        public string Language1;
         public WoerterbuchController(string path)
         {
             this.path = path;
@@ -32,15 +33,20 @@ namespace WoerterbuchLogic
 
             return germanToEnglishDict;
         }
-        public Dictionary<Word, List<Word>> FillDictionaryFromDatabase()
+        public Dictionary<Word, List<Word>> FillDictionaryFromDatabase(string language1)
         {
-            dataList = repository.GetDataList();
+            this.Language1 = language1;
+            dataList = repository.GetDataList(language1);
             string[] stringArray = dataList.ToArray();
             germanToEnglishDict = TransformData(stringArray);
             return germanToEnglishDict;
         }
         public Dictionary<Word, List<Word>> TransformData(string[] stringArray)
         {
+            int neededIndex = 0;
+            int secondIndex = 0;
+            bool isFirstWordKey = false;
+            var wordName = "";
             var allWords = new List<Word>();
             foreach (KeyValuePair<Word, List<Word>> item in germanToEnglishDict)
             {
@@ -51,7 +57,18 @@ namespace WoerterbuchLogic
 
                 List<Word> words = new List<Word>();
                 string[] partArray = stringArray[i].Split(';');
-                var wordName = partArray[0];
+                ///partArray[1] and partArray[4] contains the country code
+                if (partArray[1].Equals(Language1))
+                {
+                    neededIndex = 0;
+                    secondIndex = 3;
+                }
+                else
+                {
+                    neededIndex = 3;
+                    secondIndex = 0;
+                }
+                wordName = partArray[neededIndex];
                 Word newWord = null;
                 Word newWord1 = null;
                 Word newWord2 = null;
@@ -65,20 +82,22 @@ namespace WoerterbuchLogic
                 else
                 {
                     newWord = new Word();
-                    newWord.Name = partArray[0];
-                    newWord.CountryCode = partArray[1];
-                    newWord.Id = Convert.ToInt32(partArray[2]);
+                    newWord.Name = partArray[neededIndex];
+                    newWord.CountryCode = partArray[neededIndex+1];
+                    newWord.Id = Convert.ToInt32(partArray[neededIndex+2]);
                     allWords.Add(newWord);
                 }
                 
-                if (!string.IsNullOrEmpty(partArray[3]) && !string.IsNullOrEmpty(partArray[4]))
+                if (!string.IsNullOrEmpty(partArray[secondIndex]) && !string.IsNullOrEmpty(partArray[secondIndex+1]))
                 {
                     newWord1 = new Word();
-                    newWord1.Name = partArray[3];
-                    newWord1.CountryCode = partArray[4];
-                    newWord1.Id = Convert.ToInt32(partArray[5]);
+                    newWord1.Name = partArray[secondIndex];
+                    newWord1.CountryCode = partArray[secondIndex+1];
+                    newWord1.Id = Convert.ToInt32(partArray[secondIndex+2]);
                     words.Add(newWord1);
                 }
+                //only needed if we want to get Data from File instead of Database
+                /*
                 if (!string.IsNullOrEmpty(partArray[6]) && !string.IsNullOrEmpty(partArray[7]))
                 {
                     newWord2 = new Word();
@@ -87,6 +106,7 @@ namespace WoerterbuchLogic
                     newWord2.Id = Convert.ToInt32(partArray[8]);
                     words.Add(newWord2);
                 }
+                */
                 if (!germanToEnglishDict.Keys.Any(x => x.Equals(newWord)))
                 {
                     germanToEnglishDict.Add(newWord, words);
@@ -173,30 +193,20 @@ namespace WoerterbuchLogic
             return list;
         }
 
-        public Dictionary<Word, List<Word>> AppendTranslations(string englishWord, string spanishWord, string germanWord)
+        public Dictionary<Word, List<Word>> AppendTranslations(string firstWord, string firstCountry, string secondWord, string secondCountry)
         {
             bool isSomethingAdded = false;
             string inputString = "";
         
-            if (!string.IsNullOrEmpty(germanWord) && !string.IsNullOrEmpty(englishWord))
+            if (!string.IsNullOrEmpty(firstWord) && !string.IsNullOrEmpty(secondWord) 
+                && !string.IsNullOrEmpty(firstCountry) && !string.IsNullOrEmpty(secondCountry))
             {
                 isSomethingAdded = true;
-                inputString = germanWord + ";" + "DE" + ";" + "0" + ";";
-                inputString = inputString + englishWord + ";" + "EN" + ";" + "0" + ";";
+                inputString = firstWord + ";" + ""+firstCountry+"" + ";" + "0" + ";";
+                inputString = inputString + secondWord + ";" + ""+secondCountry+"" + ";" + "0" + ";";
 
             }
-            if (!string.IsNullOrEmpty(germanWord) && !string.IsNullOrEmpty(spanishWord))
-            {
-                if (isSomethingAdded)
-                {
-                  inputString = inputString + spanishWord + ";" + "SP" + ";" + "0" + ";";
-                }
-                else
-                {
-                    inputString = germanWord + ";" + "DE" + ";" + "0" + ";";
-                    inputString = inputString + spanishWord + ";" + "SP" + ";" + "0" + ";";
-                }
-            }
+           
             string[] array = { inputString };
             Dictionary<Word, List<Word>> dict = new Dictionary<Word, List<Word>>();
             dict = TransformData(array);
@@ -204,31 +214,25 @@ namespace WoerterbuchLogic
             
             return dict;
         }
-        public string[] OrderTranslations(Dictionary<Word, List<Word>> germanToEnglishDict, string selectedWord)
+        public List<string> OrderTranslations(Dictionary<Word, List<Word>> germanToEnglishDict, string selectedWord)
         {
-            
-            string[] outputArray = new string[2];
+
+            List<string> outputList = new List<string>();
             foreach (KeyValuePair<Word, List<Word>> item in germanToEnglishDict)
             {
                 if (item.Key.Name.Equals(selectedWord))
                 {
                    for(int i = 0; i < item.Value.Count; i++)
                     {
-                        if (item.Value[i].CountryCode.Equals("EN"))
-                        {
-                            outputArray[0] = item.Value[i].Name;
-                        }
-                        else if (item.Value[i].CountryCode.Equals("SP"))
-                        {
-                            outputArray[1] = item.Value[i].Name;
-                        }
+                        string outputString = item.Value[i].Name +"   "+ item.Value[i].CountryCode;
+                        outputList.Add(outputString);
 
                     }
                     break;
                 }
             }
                 
-            return outputArray;
+            return outputList;
         }
         public void SaveData(Dictionary<Word,List<Word>> germanToEnglishDict)
         {
@@ -260,6 +264,23 @@ namespace WoerterbuchLogic
             }
 
             return newDict;
+        }
+        public List<string> SearchInTranslations(string searchedCountryCode, List<string> list)
+        {
+            List<string> newList = new List<string>();
+            if (!string.IsNullOrEmpty(searchedCountryCode) && list != null)
+            { 
+                newList = list.Where(x =>
+                                    x.Contains(searchedCountryCode)).ToList();
+            }
+            if (newList.Count > 0)
+            {
+                return newList;
+            }
+            else
+            {
+                return list;
+            }
         }
     }
 }

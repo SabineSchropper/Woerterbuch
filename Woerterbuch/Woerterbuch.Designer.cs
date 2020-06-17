@@ -29,27 +29,25 @@
         private void InitializeComponent()
         {
             this.btnAddEnglish = new System.Windows.Forms.Button();
-            this.tbGermanWord = new System.Windows.Forms.TextBox();
-            this.tbEnglishWord = new System.Windows.Forms.TextBox();
+            this.tbFirstWord = new System.Windows.Forms.TextBox();
             this.lBoxGermanWords = new System.Windows.Forms.ListBox();
-            this.tbTranslation = new System.Windows.Forms.TextBox();
-            this.tbSpanishWord = new System.Windows.Forms.TextBox();
-            this.tbSpanishTranslation = new System.Windows.Forms.TextBox();
-            this.lbEnglish = new System.Windows.Forms.Label();
-            this.lbSpanish = new System.Windows.Forms.Label();
+            this.tbSecondWord = new System.Windows.Forms.TextBox();
             this.lbGerman = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnExport = new System.Windows.Forms.Button();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lBoxAlphabet = new System.Windows.Forms.ListBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.coBoLang1 = new System.Windows.Forms.ComboBox();
+            this.coBoLang2 = new System.Windows.Forms.ComboBox();
+            this.lBoxTranslation = new System.Windows.Forms.ListBox();
+            this.tbSearchCountry = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAddEnglish
             // 
-            this.btnAddEnglish.Location = new System.Drawing.Point(300, 152);
+            this.btnAddEnglish.Location = new System.Drawing.Point(246, 152);
             this.btnAddEnglish.Name = "btnAddEnglish";
             this.btnAddEnglish.Size = new System.Drawing.Size(166, 31);
             this.btnAddEnglish.TabIndex = 0;
@@ -57,19 +55,12 @@
             this.btnAddEnglish.UseVisualStyleBackColor = true;
             this.btnAddEnglish.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // tbGermanWord
+            // tbFirstWord
             // 
-            this.tbGermanWord.Location = new System.Drawing.Point(94, 93);
-            this.tbGermanWord.Name = "tbGermanWord";
-            this.tbGermanWord.Size = new System.Drawing.Size(189, 22);
-            this.tbGermanWord.TabIndex = 1;
-            // 
-            // tbEnglishWord
-            // 
-            this.tbEnglishWord.Location = new System.Drawing.Point(484, 68);
-            this.tbEnglishWord.Name = "tbEnglishWord";
-            this.tbEnglishWord.Size = new System.Drawing.Size(175, 22);
-            this.tbEnglishWord.TabIndex = 2;
+            this.tbFirstWord.Location = new System.Drawing.Point(105, 93);
+            this.tbFirstWord.Name = "tbFirstWord";
+            this.tbFirstWord.Size = new System.Drawing.Size(175, 22);
+            this.tbFirstWord.TabIndex = 1;
             // 
             // lBoxGermanWords
             // 
@@ -81,44 +72,12 @@
             this.lBoxGermanWords.TabIndex = 4;
             this.lBoxGermanWords.SelectedIndexChanged += new System.EventHandler(this.lBoxGermanWords_SelectedIndexChanged);
             // 
-            // tbTranslation
+            // tbSecondWord
             // 
-            this.tbTranslation.Location = new System.Drawing.Point(484, 237);
-            this.tbTranslation.Name = "tbTranslation";
-            this.tbTranslation.Size = new System.Drawing.Size(175, 22);
-            this.tbTranslation.TabIndex = 5;
-            // 
-            // tbSpanishWord
-            // 
-            this.tbSpanishWord.Location = new System.Drawing.Point(484, 115);
-            this.tbSpanishWord.Name = "tbSpanishWord";
-            this.tbSpanishWord.Size = new System.Drawing.Size(175, 22);
-            this.tbSpanishWord.TabIndex = 6;
-            // 
-            // tbSpanishTranslation
-            // 
-            this.tbSpanishTranslation.Location = new System.Drawing.Point(484, 285);
-            this.tbSpanishTranslation.Name = "tbSpanishTranslation";
-            this.tbSpanishTranslation.Size = new System.Drawing.Size(175, 22);
-            this.tbSpanishTranslation.TabIndex = 8;
-            // 
-            // lbEnglish
-            // 
-            this.lbEnglish.AutoSize = true;
-            this.lbEnglish.Location = new System.Drawing.Point(481, 217);
-            this.lbEnglish.Name = "lbEnglish";
-            this.lbEnglish.Size = new System.Drawing.Size(54, 17);
-            this.lbEnglish.TabIndex = 9;
-            this.lbEnglish.Text = "English";
-            // 
-            // lbSpanish
-            // 
-            this.lbSpanish.AutoSize = true;
-            this.lbSpanish.Location = new System.Drawing.Point(481, 265);
-            this.lbSpanish.Name = "lbSpanish";
-            this.lbSpanish.Size = new System.Drawing.Size(59, 17);
-            this.lbSpanish.TabIndex = 10;
-            this.lbSpanish.Text = "Spanish";
+            this.tbSecondWord.Location = new System.Drawing.Point(484, 93);
+            this.tbSecondWord.Name = "tbSecondWord";
+            this.tbSecondWord.Size = new System.Drawing.Size(175, 22);
+            this.tbSecondWord.TabIndex = 6;
             // 
             // lbGerman
             // 
@@ -129,27 +88,9 @@
             this.lbGerman.TabIndex = 11;
             this.lbGerman.Text = "Deutsch";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(319, 71);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 17);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Deutsch <> Englisch";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(314, 120);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 17);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Deutsch <> Spanisch";
-            // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(484, 347);
+            this.btnExport.Location = new System.Drawing.Point(626, 277);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(120, 47);
             this.btnExport.TabIndex = 14;
@@ -194,27 +135,69 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // coBoLang1
+            // 
+            this.coBoLang1.FormattingEnabled = true;
+            this.coBoLang1.Location = new System.Drawing.Point(41, 93);
+            this.coBoLang1.Name = "coBoLang1";
+            this.coBoLang1.Size = new System.Drawing.Size(49, 24);
+            this.coBoLang1.TabIndex = 19;
+            this.coBoLang1.SelectedIndexChanged += new System.EventHandler(this.coBoLang1_SelectedIndexChanged);
+            // 
+            // coBoLang2
+            // 
+            this.coBoLang2.FormattingEnabled = true;
+            this.coBoLang2.Location = new System.Drawing.Point(418, 93);
+            this.coBoLang2.Name = "coBoLang2";
+            this.coBoLang2.Size = new System.Drawing.Size(50, 24);
+            this.coBoLang2.TabIndex = 20;
+            // 
+            // lBoxTranslation
+            // 
+            this.lBoxTranslation.FormattingEnabled = true;
+            this.lBoxTranslation.ItemHeight = 16;
+            this.lBoxTranslation.Location = new System.Drawing.Point(428, 258);
+            this.lBoxTranslation.Name = "lBoxTranslation";
+            this.lBoxTranslation.Size = new System.Drawing.Size(182, 164);
+            this.lBoxTranslation.TabIndex = 21;
+            // 
+            // tbSearchCountry
+            // 
+            this.tbSearchCountry.Location = new System.Drawing.Point(513, 216);
+            this.tbSearchCountry.Name = "tbSearchCountry";
+            this.tbSearchCountry.Size = new System.Drawing.Size(96, 22);
+            this.tbSearchCountry.TabIndex = 22;
+            this.tbSearchCountry.TextChanged += new System.EventHandler(this.tbSearchCountry_TextChanged);
+            this.tbSearchCountry.Leave += new System.EventHandler(this.tbSearchCountry_Leave);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(510, 196);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(146, 17);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "Suche (Laendercode)";
+            // 
             // Woerterbuch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tbSearchCountry);
+            this.Controls.Add(this.lBoxTranslation);
+            this.Controls.Add(this.coBoLang2);
+            this.Controls.Add(this.coBoLang1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lBoxAlphabet);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.btnExport);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.lbGerman);
-            this.Controls.Add(this.lbSpanish);
-            this.Controls.Add(this.lbEnglish);
-            this.Controls.Add(this.tbSpanishTranslation);
-            this.Controls.Add(this.tbSpanishWord);
-            this.Controls.Add(this.tbTranslation);
+            this.Controls.Add(this.tbSecondWord);
             this.Controls.Add(this.lBoxGermanWords);
-            this.Controls.Add(this.tbEnglishWord);
-            this.Controls.Add(this.tbGermanWord);
+            this.Controls.Add(this.tbFirstWord);
             this.Controls.Add(this.btnAddEnglish);
             this.Name = "Woerterbuch";
             this.Text = "Wörterbuch";
@@ -226,22 +209,20 @@
         #endregion
 
         private System.Windows.Forms.Button btnAddEnglish;
-        private System.Windows.Forms.TextBox tbGermanWord;
-        private System.Windows.Forms.TextBox tbEnglishWord;
+        private System.Windows.Forms.TextBox tbFirstWord;
         private System.Windows.Forms.ListBox lBoxGermanWords;
-        private System.Windows.Forms.TextBox tbTranslation;
-        private System.Windows.Forms.TextBox tbSpanishWord;
-        private System.Windows.Forms.TextBox tbSpanishTranslation;
-        private System.Windows.Forms.Label lbEnglish;
-        private System.Windows.Forms.Label lbSpanish;
+        private System.Windows.Forms.TextBox tbSecondWord;
         private System.Windows.Forms.Label lbGerman;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox lBoxAlphabet;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.ComboBox coBoLang1;
+        private System.Windows.Forms.ComboBox coBoLang2;
+        private System.Windows.Forms.ListBox lBoxTranslation;
+        private System.Windows.Forms.TextBox tbSearchCountry;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -19,13 +19,16 @@ namespace WoerterbuchData
         {
 
         }
-        public List<string> GetDataList()
+        public List<string> GetDataList(string language1)
         {
+            ///important to clear this dataList for filling it new
+            dataList.Clear();
             string databaseUrl = "" + connectionString + "";
             connection = new MySqlConnection(databaseUrl);
             string sql = "SELECT dictOne.word as language1, dictTwo.word as language2, dictOne.country_code as code1, dictTwo.country_code as code2, " +
                 "dictOne.id as id1, dictTwo.id as id2 FROM `relation` inner join dictionary as dictOne on relation.id_one = " +
-                "dictOne.id inner join dictionary as dictTwo on relation.id_two = dictTwo.id";
+                "dictOne.id inner join dictionary as dictTwo on relation.id_two = dictTwo.id " +
+                "where dictOne.country_code = '"+language1+"' OR dictTwo.country_code = '"+language1+"'";
             MySqlCommand command = new MySqlCommand(sql);
             command.Connection = connection;
             connection.Open();

@@ -1,2 +1,5 @@
-essen;DE;1;eat;EN;2;
-wolke;DE;0;cloud;EN;0;nube;SP;0;
+essen;DE;1;eat;EN;2;comer;SP;27;
+wolke;DE;21;cloud;EN;22;nube;SP;23;
+hallo;DE;24;hello;EN;25;hola;SP;26;
+arbeiten;DE;28;trabajo;SP;29;work;EN;30;
+apfel;DE;31;apple;EN;32;manzana;SP;33;
