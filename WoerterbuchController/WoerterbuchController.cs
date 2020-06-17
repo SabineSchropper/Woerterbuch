@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using WoerterbuchData;
 using Google.Protobuf.WellKnownTypes;
+using System.Text.RegularExpressions;
 
 namespace WoerterbuchLogic
 {
@@ -58,16 +59,22 @@ namespace WoerterbuchLogic
                 List<Word> words = new List<Word>();
                 string[] partArray = stringArray[i].Split(';');
                 ///partArray[1] and partArray[4] contains the country code
-                if (partArray[1].Equals(Language1))
+
+                if (partArray.Length < 2)
                 {
-                    neededIndex = 0;
-                    secondIndex = 3;
+                    throw new PersonalException("Bitte geben Sie Länderkürzel und Worte ein.");
                 }
-                else
-                {
-                    neededIndex = 3;
-                    secondIndex = 0;
-                }
+                    if (partArray[1].Equals(Language1))
+                    {
+                        neededIndex = 0;
+                        secondIndex = 3;
+                    }
+                    else
+                    {
+                        neededIndex = 3;
+                        secondIndex = 0;
+                    }
+
                 wordName = partArray[neededIndex];
                 Word newWord = null;
                 Word newWord1 = null;
@@ -197,7 +204,13 @@ namespace WoerterbuchLogic
         {
             bool isSomethingAdded = false;
             string inputString = "";
-        
+
+            if (!Regex.IsMatch(firstWord, @"^[a-zA-Z]+$") || !Regex.IsMatch(secondWord, @"^[a-zA-Z]+$"))
+            {
+                throw new NoLetterException("Geben Sie bitte nur Buchstaben ein.");
+            }
+
+
             if (!string.IsNullOrEmpty(firstWord) && !string.IsNullOrEmpty(secondWord) 
                 && !string.IsNullOrEmpty(firstCountry) && !string.IsNullOrEmpty(secondCountry))
             {
@@ -208,10 +221,10 @@ namespace WoerterbuchLogic
             }
            
             string[] array = { inputString };
-            Dictionary<Word, List<Word>> dict = new Dictionary<Word, List<Word>>();
-            dict = TransformData(array);
-           
+            Dictionary<Word, List<Word>> dict = new Dictionary<Word, List<Word>>();   
             
+            dict = TransformData(array);
+                     
             return dict;
         }
         public List<string> OrderTranslations(Dictionary<Word, List<Word>> germanToEnglishDict, string selectedWord)

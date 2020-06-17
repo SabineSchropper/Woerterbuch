@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using WoerterbuchData;
 using WoerterbuchLogic;
@@ -15,7 +16,7 @@ namespace Woerterbuch
         private int searchCounter = 0;
         WoerterbuchController controller = new WoerterbuchController(""+ConfigurationManager.AppSettings.Get("FilePath")+"");
         Dictionary<Word, List<Word>> germanToEnglishDict = new Dictionary<Word, List<Word>>();
-       
+
         public Woerterbuch()
         {
             InitializeComponent();
@@ -23,14 +24,15 @@ namespace Woerterbuch
             string languages = ConfigurationManager.AppSettings.Get("Languages");
             string[] languageArray = languages.Split(';');
 
-            foreach(string item in languageArray)
+            foreach (string item in languageArray)
             {
                 coBoLang1.Items.Add(item);
                 coBoLang2.Items.Add(item);
             }
 
             germanToEnglishDict = controller.FillDictionaryFromDatabase("DE");
-            
+
+
             UpdateTranslations();
             lBoxAlphabet.DataSource = controller.GetAlphabet();
 
@@ -38,13 +40,27 @@ namespace Woerterbuch
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            
             string firstWord = tbFirstWord.Text;
             string firstCountry = coBoLang1.SelectedItem as string;
             string secondWord = tbSecondWord.Text;
             string secondCountry = coBoLang2.SelectedItem as string;
-
-            germanToEnglishDict = controller.AppendTranslations(firstWord,firstCountry,secondWord,secondCountry);
+            try
+            {
+                germanToEnglishDict = controller.AppendTranslations(firstWord, firstCountry, secondWord, secondCountry);
+            }
+            catch(Exception ex)
+            {
+                if(ex is PersonalException)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                else if(ex is NoLetterException)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
+            }
             UpdateTranslations();
 
         }
@@ -64,6 +80,7 @@ namespace Woerterbuch
             string selectedWord = lBoxGermanWords.SelectedItem as string;
             //searchCounter helps me to better handle the countryCode Searching in tbSearchCountry_TextChanged
             searchCounter = 0;
+            saveList.Clear();
 
             if (!string.IsNullOrEmpty(selectedWord))
             {
@@ -133,6 +150,7 @@ namespace Woerterbuch
         {
             lBoxTranslation.DataSource = saveList;
         }
+
         ///TODO...Verknüpfungen zwischen zwei Worten in der Relation Tabelle
         ///z.B. Fuchs...Zorro, Fox....Zorro, autom. Verbíndung zw. Fuchs und Fox
     }
