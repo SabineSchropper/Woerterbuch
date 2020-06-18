@@ -205,7 +205,7 @@ namespace WoerterbuchLogic
             bool isSomethingAdded = false;
             string inputString = "";
 
-            if (!Regex.IsMatch(firstWord, @"^[a-zA-Z]+$") || !Regex.IsMatch(secondWord, @"^[a-zA-Z]+$"))
+            if (Regex.IsMatch(firstWord, @"^[0-9]+$") || Regex.IsMatch(secondWord, @"^[0-9]+$"))   
             {
                 throw new NoLetterException("Geben Sie bitte nur Buchstaben ein.");
             }

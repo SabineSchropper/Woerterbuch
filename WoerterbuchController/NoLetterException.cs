@@ -6,7 +6,7 @@ namespace WoerterbuchLogic
 {
     public class NoLetterException : Exception
     {
-        public NoLetterException(string message) : base(message)
+        public NoLetterException(string newMessage) : base(newMessage)
         {
 
         }
